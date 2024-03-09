@@ -3,17 +3,26 @@ import favicon from "../assets/favicon.png";
 import MostSeen from "../components/MostSeen";
 import BirdCards from "../components/BirdCards";
 import ShootPicture from "../components/ShootPicture";
-const birdsArray = {
-  Eagle: 3,
-  Sparrow: 5,
-  Robin: 2,
-};
+import { useState } from "react";
 
 const HomePage = () => {
+  const [birdsList, setBirdsList] = useState({
+    Cardinal: 1,
+    "Blue Jay": 2,
+    // other birds...
+  });
+
+  const incrementBirdSeen = (birdName) => {
+    const newBirdsList = { ...birdsList, [birdName]: birdsList[birdName] + 1 };
+    setBirdsList(newBirdsList);
+  };
   return (
     <View style={{ flex: 1 }}>
       <MostSeen imageUrl={favicon} name="Blue Jay" timesSeen={5} />
-      <BirdCards birdsList={birdsArray} />
+      <BirdCards
+        initialBirdsList={birdsList}
+        onIncrementBirdSeen={incrementBirdSeen}
+      />
       <ShootPicture />
     </View>
   );
