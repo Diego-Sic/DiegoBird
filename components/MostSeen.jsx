@@ -1,15 +1,26 @@
 import React from "react";
 import { View, Text, Image, StyleSheet, Dimensions } from "react-native";
 
-const MostSeen = ({ imageUrl, name, timesSeen }) => {
-  const imageSource =
-    typeof imageUrl === "string" ? { uri: imageUrl } : imageUrl;
+const MostSeen = ({ initialBirdsList }) => {
+  const findBirdWithMostInstances = (birdsList) => {
+    let maxSeen = 0;
+    let birdWithMaxSeen = "";
+    let birdImageUrl = "";
+    Object.entries(birdsList).forEach(([bird, { timesSeen, imageUrl }]) => {
+      if (timesSeen > maxSeen) {
+        maxSeen = timesSeen;
+        birdWithMaxSeen = bird;
+        birdImageUrl = imageUrl;
+      }
+    });
+    return { birdWithMaxSeen, maxSeen, birdImageUrl };
+  };
 
-  // Correctly calculate the card height here
+  const { birdWithMaxSeen, maxSeen, birdImageUrl } =
+    findBirdWithMostInstances(initialBirdsList);
   const screenHeight = Dimensions.get("window").height;
   const cardHeight = screenHeight * 0.5;
 
-  // You can dynamically adjust styles here
   const dynamicStyles = StyleSheet.create({
     card: {
       backgroundColor: "#f9f9f9",
@@ -48,10 +59,10 @@ const MostSeen = ({ imageUrl, name, timesSeen }) => {
 
   return (
     <View style={dynamicStyles.card}>
-      <Image source={imageSource} style={dynamicStyles.image} />
+      <Image source={birdImageUrl} style={dynamicStyles.image} />
       <View style={dynamicStyles.infoContainer}>
-        <Text style={dynamicStyles.name}>{name}</Text>
-        <Text style={dynamicStyles.timesSeen}>Seen {timesSeen} times</Text>
+        <Text style={dynamicStyles.name}>{birdWithMaxSeen}</Text>
+        <Text style={dynamicStyles.timesSeen}>Seen {maxSeen} times</Text>
       </View>
     </View>
   );
