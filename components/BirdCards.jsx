@@ -1,8 +1,23 @@
 import React from "react";
-import { View, Text, ScrollView, TouchableOpacity, Image } from "react-native";
+import {
+  View,
+  Text,
+  ScrollView,
+  TouchableOpacity,
+  Image,
+  Alert,
+} from "react-native";
 import { styles } from "../styles/BirdCardsStyles";
 
-const BirdCards = ({ initialBirdsList, onIncrementBirdSeen }) => {
+const BirdCards = ({ initialBirdsList, onIncrementBirdSeen, onDeleteBird }) => {
+  const handleDeleteBird = (birdName) => {
+    // Optional: Show a confirmation dialog before deleting
+    Alert.alert("Delete Bird", `Are you sure you want to remove ${birdName}?`, [
+      { text: "Cancel" },
+      { text: "Delete", onPress: () => onDeleteBird(birdName) },
+    ]);
+  };
+
   return (
     <ScrollView style={styles.container}>
       {Object.entries(initialBirdsList).map(
@@ -19,6 +34,13 @@ const BirdCards = ({ initialBirdsList, onIncrementBirdSeen }) => {
               >
                 <Text style={styles.plusSign}>+</Text>
               </TouchableOpacity>
+              {/* Delete Button */}
+              <TouchableOpacity
+                style={styles.deleteButton}
+                onPress={() => handleDeleteBird(birdName)}
+              >
+                <Text style={styles.deleteButtonText}>Delete</Text>
+              </TouchableOpacity>
             </View>
           </View>
         )
@@ -26,5 +48,4 @@ const BirdCards = ({ initialBirdsList, onIncrementBirdSeen }) => {
     </ScrollView>
   );
 };
-
 export default BirdCards;

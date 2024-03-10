@@ -40,8 +40,22 @@ const useBirdsList = () => {
     };
     setBirdsList(newBirdsList);
   };
+  const addBird = (birdName, timesSeen) => {
+    const newEntry = {
+      [birdName]: { timesSeen, imageUrl: "/assets/Robing.jpg" },
+    };
+    setBirdsList((currentList) => ({ ...currentList, ...newEntry }));
+  };
+  const deleteBird = (birdName) => {
+    setBirdsList((currentList) => {
+      const newList = { ...currentList };
+      delete newList[birdName];
+      return newList;
+    });
+  };
 
-  return { birdsList, incrementBirdSeen };
+  // Return deleteBird from your hook
+  return { birdsList, incrementBirdSeen, addBird, deleteBird };
 };
 
 export default useBirdsList;

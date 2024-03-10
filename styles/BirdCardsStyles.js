@@ -46,4 +46,15 @@ export const styles = StyleSheet.create({
     height: 50,
     borderRadius: 25,
   },
+  // Add these styles to your BirdCardsStyles
+  deleteButton: {
+    marginLeft: 10,
+    paddingHorizontal: 10,
+    paddingVertical: 5,
+    backgroundColor: "red", // Choose a suitable color
+    borderRadius: 5,
+  },
+  deleteButtonText: {
+    color: "#fff", // Text color that contrasts with the button background
+  },
 });

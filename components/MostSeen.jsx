@@ -20,7 +20,7 @@ const MostSeen = ({ initialBirdsList }) => {
   const { birdWithMaxSeen, maxSeen, birdImageUrl } =
     findBirdWithMostInstances(initialBirdsList);
   const screenHeight = Dimensions.get("window").height;
-  const cardHeight = screenHeight * 0.5;
+  const cardHeight = screenHeight * 0.2;
 
   return (
     <View style={[styles.card, { height: cardHeight }]}>
